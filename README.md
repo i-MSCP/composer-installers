@@ -1,7 +1,7 @@
 # [Composer](https://getcomposer.org) installers for [i-MSCP](https://www.i-mscp.net/)
 
 [![Build Status](https://secure.travis-ci.org/i-MSCP/composer-installers.svg?branch=master)](https://secure.travis-ci.org/i-MSCP/composer-installers)
-[![Coverage Status](https://coveralls.io/repos/github/i-MSCP/composer-installers/badge.svg?branch=master?service=github)](https://coveralls.io/github/i-MSCP/composer-installers?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/i-MSCP/composer-installers/badge.svg?branch=master&service=github)](https://coveralls.io/github/i-MSCP/composer-installers?branch=master)
 
 This is for i-MSCP composer package authors to require in their `composer.json`.
 It will install their package to the correct location based on the specified
