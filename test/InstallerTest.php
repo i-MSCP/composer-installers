@@ -101,8 +101,8 @@ class InstallerTest extends TestCase
         return [
             ['imscp-plugin', 'plugins/phpswitcher/', 'imscp/phpswitcher'],
             ['imscp-plugin', 'plugins/letsencrypt/', 'imscp/letsencrypt'],
-            ['imscp-theme', 'theme/foo/', 'imscp/foo'],
-            ['imscp-theme', 'theme/bar/', 'imscp/bar'],
+            ['imscp-theme', 'themes/foo/', 'imscp/foo'],
+            ['imscp-theme', 'themes/bar/', 'imscp/bar'],
             ['imscp-tool', 'public/tools/phpmyadmin/', 'imscp/phpmyadmin'],
             ['imscp-tool', 'public/tools/roundcube/', 'imscp/roundcube'],
             ['roundcube-plugin', 'plugins/bar/', 'foo/bar'],

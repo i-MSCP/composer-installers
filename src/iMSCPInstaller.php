@@ -6,7 +6,7 @@ class iMSCPInstaller extends AbstractInstaller
 {
     protected $locations = [
         'plugin' => 'plugins/{$name}/',
-        'theme'  => 'theme/{$name}/',
+        'theme'  => 'themes/{$name}/',
         'tool'   => 'public/tools/{$name}/',
     ];
 }
