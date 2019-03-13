@@ -170,6 +170,23 @@ class InstallerTest extends TestCase
         $this->assertEquals('my/custom/path/roundcube/', $result);
     }
 
+    public function testInstallerMapCustomInstallPathsReturnFalseIfNotPathFound()
+    {
+        $installer = new Installer($this->io, $this->composer);
+        $package = new Package('imscp/roundcube', '1.0.0', '1.0.0');
+        $package->setType('imscp-tool');
+        $this->composer->getPackage()->setExtra([
+            'installer-paths' => [
+                'my/custom/path/{$name}/' => [
+                    'imscp/foo',
+                    'imscp/bar',
+                ],
+            ],
+        ]);
+        $result = $installer->getInstallPath($package);
+        $this->assertEquals(false, $result);
+    }
+
     /**
      * testCustomInstallerName
      */
