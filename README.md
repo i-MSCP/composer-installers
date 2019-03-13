@@ -89,14 +89,14 @@ would install any package provided by the `konzeptplus` vendor into the
 
 In all the above cases, the following variables are available for use in paths:
 
-`{$name}`: Package name
-`{$vendor}` Vendor name
-`{$type}` Package type
+- `{$name}`: Package name
+- `{$vendor}` Vendor name
+- `{$type}` Package type
 
 ## Custom install name
 
 As a package author, you can name it differently when installed by using the
-`installer-name` extra if the package `composer.json`. 
+`installer-name` extra in the package `composer.json`. 
 
 If you have a package named `imscp/roundcube` of type` imscp-tool`, it would
 be installed in the `gui/public/tools/roundcube` path. To provide this
