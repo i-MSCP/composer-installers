@@ -14,7 +14,7 @@
         <whitelist>
             <directory suffix=".php">./src</directory>
             <exclude>
-                <file>./src/Plugins.php</file>
+                <file>./src/Plugin.php</file>
             </exclude>
         </whitelist>
     </filter>
