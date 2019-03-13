@@ -96,7 +96,7 @@ class InstallerTest extends TestCase
     /**
      * dataFormTestInstallPath
      */
-    public function dataForTestInstallPath()
+    public function dataForTestInstallPathForVariousPackageTypes()
     {
         return [
             ['imscp-plugin', 'plugins/phpswitcher/', 'imscp/phpswitcher'],
@@ -113,15 +113,40 @@ class InstallerTest extends TestCase
     /**
      * testInstallPath
      *
-     * @dataProvider dataForTestInstallPath
+     * @dataProvider dataForTestInstallPathForVariousPackageTypes
      */
-    public function testInstallPath($type, $path, $name, $version = '1.0.0')
+    public function testInstallPathForVariousPackageTypes($type, $path, $name, $version = '1.0.0')
     {
         $installer = new Installer($this->io, $this->composer);
         $package = new Package($name, $version, $version);
         $package->setType($type);
         $result = $installer->getInstallPath($package);
         $this->assertEquals($path, $result);
+    }
+
+    public function testInstallerThrowAnExceptionOnUnsupportedPackageType()
+    {
+        $installer = new Installer($this->io, $this->composer);
+        $package = new Package('imscp-roundcube', '1.0.0', '1.0.0');
+        $package->setType(false);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The package type of this package is not supported');
+
+        $installer->getInstallPath($package);
+
+    }
+
+    public function testAbstractInstallerThrowAnExceptionOnUnsupportedPackageType()
+    {
+        $installer = new Installer($this->io, $this->composer);
+        $package = new Package('imscp-roundcube', '1.0.0', '1.0.0');
+        $package->setType('imscp-foo');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Package type "imscp-foo" is not supported');
+
+        $installer->getInstallPath($package);
     }
 
     /**
