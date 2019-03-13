@@ -1,8 +1,8 @@
 {
-  "name": "imscp/composer-installer",
+  "name": "imscp/composer-installers",
   "type": "composer-plugin",
   "license": "LGPL-2.1-only",
-  "description": "i-MSCP composer installer",
+  "description": "i-MSCP composer installers",
   "keywords": [
     "installers",
     "iMSCP",

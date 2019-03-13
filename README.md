@@ -14,7 +14,7 @@ package type.
 
 This is an example for the i-MSCP PhpMyAdmin composer package. The only
 important parts to set in the composer.json file are `"type": "imscp-tool"`
-which describes what package is and `"require": { "composer/installers": "^1.0" }`
+which describes what package is and `"require": { "imscp/composer-installers": "^1.0" }`
 which tells composer to load the custom installers.
 
 ```json
