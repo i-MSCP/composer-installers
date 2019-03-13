@@ -1,0 +1,62 @@
+{
+  "name": "imscp/composer-installer",
+  "type": "composer-plugin",
+  "license": "LGPL-2.1-only",
+  "description": "i-MSCP composer installer",
+  "keywords": [
+    "installers",
+    "iMSCP",
+    "tools",
+    "plugins",
+    "library",
+    "roundcube"
+  ],
+  "homepage": "https://www.i-mscp.net/",
+  "authors": [
+    {
+      "name": "Laurent Declercq",
+      "email": "l.declercq@nuxwin.com",
+      "homepage": "https://www.i-mscp.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "iMSCP\\Composer\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "iMSCPTest\\Composer\\": "test/"
+    }
+  },
+  "extra": {
+    "class": "iMSCP\\Composer\\Plugin",
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "replace": {
+    "roundcube/plugin-installer": "*"
+  },
+  "conflict": {
+    "composer/installers": "*"
+  },
+  "require": {
+    "php": ">=7.3",
+    "composer-plugin-api": "^1.1"
+  },
+  "require-dev": {
+    "php": ">=7.3",
+    "ext-xdebug": "*",
+    "composer/composer": "^1.8",
+    "phpunit/phpunit": "^8.0.4",
+    "roave/security-advisories": "dev-master"
+  },
+  "scripts": {
+    "check": [
+      "@test"
+    ],
+    "test": "phpunit --colors=always",
+    "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+  }
+}
