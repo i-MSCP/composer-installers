@@ -18,7 +18,7 @@ class Installer extends LibraryInstaller
      * @var array
      */
     private $supportedTypes = [
-        'imscp'     => 'iMSCPInstaller',
+        'imscp'     => 'ImscpInstaller',
         'roundcube' => 'RoundcubeInstaller'
     ];
 
@@ -38,8 +38,8 @@ class Installer extends LibraryInstaller
         IOInterface $io,
         Composer $composer,
         $type = 'library',
-        Filesystem $filesystem = NULL,
-        BinaryInstaller $binaryInstaller = NULL
+        Filesystem $filesystem = null,
+        BinaryInstaller $binaryInstaller = null
     ) {
         parent::__construct($io, $composer, $type, $filesystem, $binaryInstaller);
 
@@ -60,7 +60,7 @@ class Installer extends LibraryInstaller
     protected function removeDisabledInstallers()
     {
         $extra = $this->composer->getPackage()->getExtra();
-        if (!isset($extra['installer-disable']) || $extra['installer-disable'] === false) {
+        if (! isset($extra['installer-disable']) || $extra['installer-disable'] === false) {
             // No installers are disabled
             return;
         }
@@ -68,16 +68,16 @@ class Installer extends LibraryInstaller
         // Get installers to disable
         $disable = $extra['installer-disable'];
         // Ensure $disabled is an array
-        if (!is_array($disable)) {
+        if (! is_array($disable)) {
             $disable = [$disable];
         }
 
         // Check which installers should be disabled
-        $all = array(true, "all", "*");
+        $all = [true, "all", "*"];
         $intersect = array_intersect($all, $disable);
-        if (!empty($intersect)) {
+        if (! empty($intersect)) {
             // Disable all installers
-            $this->supportedTypes = array();
+            $this->supportedTypes = [];
         } else {
             // Disable specified installers
             foreach ($disable as $key => $installer) {
@@ -103,8 +103,8 @@ class Installer extends LibraryInstaller
         }
 
         $class = 'iMSCP\\Composer\\' . $this->supportedTypes[$installerType];
-        
-        /** @var \iMSCP\Composer\Installer $installer */
+
+        /** @var \iMSCP\Composer\AbstractInstaller $installer */
         $installer = new $class($package, $this->composer, $this->getIO());
 
         return $installer->getInstallPath($package, $installerType);
@@ -147,7 +147,9 @@ class Installer extends LibraryInstaller
 
         $installPath = $this->getPackageBasePath($package);
         $this->io->write(sprintf(
-            'Deleting %s - %s', $installPath, !file_exists($installPath) ? '<comment>deleted</comment>' : '<error>not deleted</error>'
+            'Deleting %s - %s',
+            $installPath,
+            ! file_exists($installPath) ? '<comment>deleted</comment>' : '<error>not deleted</error>'
         ));
     }
 
@@ -178,10 +180,10 @@ class Installer extends LibraryInstaller
     {
         $pattern = false;
 
-        if (!empty($this->supportedTypes[$installerType])) {
+        if (! empty($this->supportedTypes[$installerType])) {
             $installerClass = 'iMSCP\\Composer\\' . $this->supportedTypes[$installerType];
             /** @var AbstractInstaller $installer */
-            $installer = new $installerClass(NULL, $this->composer, $this->getIO());
+            $installer = new $installerClass(null, $this->composer, $this->getIO());
             $locations = array_keys($installer->getLocations());
             $pattern = $locations ? '(' . implode('|', $locations) . ')' : false;
         }

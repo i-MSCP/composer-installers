@@ -21,9 +21,9 @@ abstract class AbstractInstaller
      * @param IOInterface $io
      */
     public function __construct(
-        PackageInterface $package = NULL,
-        Composer $composer = NULL,
-        IOInterface $io = NULL
+        PackageInterface $package = null,
+        Composer $composer = null,
+        IOInterface $io = null
     ) {
         $this->composer = $composer;
         $this->package = $package;
@@ -51,13 +51,13 @@ abstract class AbstractInstaller
 
         $availableVars = $this->inflectPackageVars(compact('name', 'vendor', 'type'));
         $extra = $package->getExtra();
-        if (!empty($extra['installer-name'])) {
+        if (! empty($extra['installer-name'])) {
             $availableVars['name'] = $extra['installer-name'];
         }
 
         if ($this->composer->getPackage()) {
             $extra = $this->composer->getPackage()->getExtra();
-            if (!empty($extra['installer-paths'])) {
+            if (! empty($extra['installer-paths'])) {
                 $customPath = $this->mapCustomInstallPaths($extra['installer-paths'], $prettyName, $type, $vendor);
                 if ($customPath !== false) {
                     return $this->templatePath($customPath, $availableVars);
@@ -68,7 +68,7 @@ abstract class AbstractInstaller
         $packageType = substr($type, strlen($installerType) + 1);
         $locations = $this->getLocations();
 
-        if (!isset($locations[$packageType])) {
+        if (! isset($locations[$packageType])) {
             throw new \InvalidArgumentException(sprintf('Package type "%s" is not supported', $type));
         }
 
@@ -95,7 +95,7 @@ abstract class AbstractInstaller
      * @param  string $vendor = NULL
      * @return string
      */
-    protected function mapCustomInstallPaths(array $paths, $name, $type, $vendor = NULL): string
+    protected function mapCustomInstallPaths(array $paths, $name, $type, $vendor = null): string
     {
         foreach ($paths as $path => $names) {
             if (in_array($name, $names) || in_array('type:' . $type, $names) || in_array('vendor:' . $vendor, $names)) {
@@ -119,7 +119,7 @@ abstract class AbstractInstaller
             extract($vars);
             preg_match_all('@\{\$([A-Za-z0-9_]*)\}@i', $path, $matches);
 
-            if (!empty($matches[1])) {
+            if (! empty($matches[1])) {
                 foreach ($matches[1] as $var) {
                     $path = str_replace('{$' . $var . '}', $$var, $path);
                 }

@@ -3,7 +3,6 @@
 namespace iMSCPTest\Composer;
 
 use Composer\Package\AliasPackage;
-//use Composer\Package\LinkConstraint\VersionConstraint;
 use Composer\Package\Package;
 use Composer\Package\Version\VersionParser;
 use Composer\Util\Filesystem;
@@ -16,7 +15,7 @@ abstract class TestCase extends BaseTestCase
 
     protected static function getVersionParser()
     {
-        if (!self::$parser) {
+        if (! self::$parser) {
             self::$parser = new VersionParser();
         }
 
@@ -26,7 +25,8 @@ abstract class TestCase extends BaseTestCase
     protected function getVersionConstraint($operator, $version)
     {
         return new VersionConstraint(
-            $operator, self::getVersionParser()->normalize($version)
+            $operator,
+            self::getVersionParser()->normalize($version)
         );
     }
 

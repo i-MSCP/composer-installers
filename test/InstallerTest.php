@@ -55,8 +55,8 @@ class InstallerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->composer->setDownloadManager($this->dm);
-        $this->repository = $this->createMock('Composer\Repository\InstalledRepositoryInterface');
-        $this->io = $this->createMock('Composer\IO\IOInterface');
+        $this->repository = $this->createMock('Composer\\Repository\\InstalledRepositoryInterface');
+        $this->io = $this->createMock('Composer\\IO\\IOInterface');
         $consumerPackage = new RootPackage('imscp/frontend', '1.0.0', '1.0.0');
         $this->composer->setPackage($consumerPackage);
     }
@@ -129,12 +129,9 @@ class InstallerTest extends TestCase
         $installer = new Installer($this->io, $this->composer);
         $package = new Package('imscp-roundcube', '1.0.0', '1.0.0');
         $package->setType(false);
-
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The package type of this package is not supported');
-
         $installer->getInstallPath($package);
-
     }
 
     public function testAbstractInstallerThrowAnExceptionOnUnsupportedPackageType()
@@ -142,10 +139,8 @@ class InstallerTest extends TestCase
         $installer = new Installer($this->io, $this->composer);
         $package = new Package('imscp-roundcube', '1.0.0', '1.0.0');
         $package->setType('imscp-foo');
-
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Package type "imscp-foo" is not supported');
-
         $installer->getInstallPath($package);
     }
 
@@ -198,7 +193,6 @@ class InstallerTest extends TestCase
         $package->setExtra([
             'installer-name' => 'webmail',
         ]);
-
         $result = $installer->getInstallPath($package);
         $this->assertEquals('public/tools/webmail/', $result);
     }
@@ -220,7 +214,6 @@ class InstallerTest extends TestCase
                     ],
                 ],
             ]);
-
         $result = $installer->getInstallPath($package);
         $this->assertEquals('my/custom/path/roundcube/', $result);
     }
@@ -264,11 +257,8 @@ class InstallerTest extends TestCase
     public function testUninstallAndDeletePackageFromLocalRepo()
     {
         $package = new Package('foo', '1.0.0', '1.0.0');
-
-        //$installer = $this->getMock('iMSCP\Composer\Installers\Installer', array('getInstallPath'), array($this->io, $this->composer));
-
         /** @var  \iMSCP\Composer\Installer|\PHPUnit\Framework\MockObject\MockObject $installer */
-        $installer = $this->getMockBuilder('iMSCP\Composer\Installer')
+        $installer = $this->getMockBuilder('iMSCP\\Composer\\Installer')
             ->setMethods(['getInstallPath'])
             ->setConstructorArgs([$this->io, $this->composer])
             ->getMock();
@@ -276,14 +266,14 @@ class InstallerTest extends TestCase
             ->method('getInstallPath')
             ->with($package)
             ->will($this->returnValue(sys_get_temp_dir() . '/foo'));
-
         /** @var \Composer\Repository\InstalledRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject $repo */
-        $repo = $this->createMock('Composer\Repository\InstalledRepositoryInterface');
+        $repo = $this->createMock('Composer\\Repository\\InstalledRepositoryInterface');
         $repo->expects($this->once())
             ->method('hasPackage')
             ->with($package)
             ->will($this->returnValue(true));
-        $repo->expects($this->once())->method('removePackage')
+        $repo->expects($this->once())
+            ->method('removePackage')
             ->with($package);
         $installer->uninstall($repo, $package);
     }

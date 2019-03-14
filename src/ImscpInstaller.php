@@ -2,7 +2,7 @@
 
 namespace iMSCP\Composer;
 
-class iMSCPInstaller extends AbstractInstaller
+class ImscpInstaller extends AbstractInstaller
 {
     protected $locations = [
         'plugin' => 'plugins/{$name}/',
